@@ -1,0 +1,11 @@
+/Users/andonmitev/Desktop/RUst/hello_world/target/release/deps/libthiserror_impl-4ee030035b16dd2f.dylib: /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/lib.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/ast.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/attr.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/expand.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/fmt.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/prop.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/valid.rs
+
+/Users/andonmitev/Desktop/RUst/hello_world/target/release/deps/thiserror_impl-4ee030035b16dd2f.d: /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/lib.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/ast.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/attr.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/expand.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/fmt.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/prop.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/valid.rs
+
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/lib.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/ast.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/attr.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/expand.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/fmt.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/prop.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/thiserror-impl-1.0.25/src/valid.rs:

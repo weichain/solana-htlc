@@ -1,0 +1,1 @@
+/Users/andonmitev/Desktop/RUst/hello_world/target/debug/libhelloworld.dylib: /Users/andonmitev/Desktop/RUst/hello_world/src/error.rs /Users/andonmitev/Desktop/RUst/hello_world/src/instructions.rs /Users/andonmitev/Desktop/RUst/hello_world/src/lib.rs build.rs

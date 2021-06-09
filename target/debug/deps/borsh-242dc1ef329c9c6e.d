@@ -1,0 +1,12 @@
+/Users/andonmitev/Desktop/RUst/hello_world/target/debug/deps/borsh-242dc1ef329c9c6e.rmeta: /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/lib.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/de/mod.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/de/hint.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/schema.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/schema_helpers.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/ser/mod.rs
+
+/Users/andonmitev/Desktop/RUst/hello_world/target/debug/deps/libborsh-242dc1ef329c9c6e.rlib: /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/lib.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/de/mod.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/de/hint.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/schema.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/schema_helpers.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/ser/mod.rs
+
+/Users/andonmitev/Desktop/RUst/hello_world/target/debug/deps/borsh-242dc1ef329c9c6e.d: /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/lib.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/de/mod.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/de/hint.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/schema.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/schema_helpers.rs /Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/ser/mod.rs
+
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/lib.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/de/mod.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/de/hint.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/schema.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/schema_helpers.rs:
+/Users/andonmitev/.cargo/registry/src/github.com-1ecc6299db9ec823/borsh-0.7.2/src/ser/mod.rs:

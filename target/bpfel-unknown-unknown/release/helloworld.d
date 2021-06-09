@@ -1,0 +1,1 @@
+/Users/andonmitev/Desktop/RUst/hello_world/target/bpfel-unknown-unknown/release/helloworld.so: /Users/andonmitev/Desktop/RUst/hello_world/src/error.rs /Users/andonmitev/Desktop/RUst/hello_world/src/instructions.rs /Users/andonmitev/Desktop/RUst/hello_world/src/lib.rs build.rs
