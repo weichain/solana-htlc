@@ -55,8 +55,9 @@ impl Instruction {
       }
       1 => {
         let account_info_iter = &mut accounts.iter();
-        let recipient = next_account_info(account_info_iter)?;
+        let signer = next_account_info(account_info_iter)?;
         let storage_account = next_account_info(account_info_iter)?;
+        let buyer = next_account_info(account_info_iter)?;
 
         let input_data = Claim::try_from_slice(input)?;
         let storage_data = Init::try_from_slice(&storage_account.data.borrow())?;
@@ -75,7 +76,7 @@ impl Instruction {
         let lamports = storage_account.lamports();
 
         **storage_account.try_borrow_mut_lamports()? -= lamports;
-        **recipient.try_borrow_mut_lamports()? += lamports;
+        **buyer.try_borrow_mut_lamports()? += lamports;
 
         Self::Claim
       }
