@@ -10,7 +10,7 @@ edition = "2018"
 no-entrypoint = []
 
 [dependencies]
-borsh = "0.7.1"
+borsh = "0.8.1"
 borsh-derive = "0.8.1"
 solana-program = "=1.7.1"
 thiserror = "1.0"
