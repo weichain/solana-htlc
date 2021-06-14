@@ -6,6 +6,10 @@ use thiserror::Error;
 pub enum InstructionError {
     #[error("Not Existing Case")]
     NotExistingCase,
+    #[error("Invalid Secret")]
+    InvalidSecret,
+    #[error("Swap is not expired")]
+    SwapNotExpired,
 }
 
 impl From<InstructionError> for ProgramError {
