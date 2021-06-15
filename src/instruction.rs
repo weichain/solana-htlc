@@ -5,6 +5,7 @@ use hex::decode;
 use sha2::{Digest, Sha256};
 use solana_program::{
   account_info::{next_account_info, AccountInfo},
+  msg,
   program_error::ProgramError,
   sysvar::{clock::Clock, Sysvar},
 };
@@ -92,6 +93,9 @@ impl Instruction {
         if (clock.unix_timestamp as u64) < storage_data.expiration {
           return Err(InstructionError::SwapNotExpired.into());
         }
+
+        msg!("seller, {:?}", seller.key);
+        msg!("storage, {:?}", storage_data.seller);
 
         let lamports = storage_account.lamports();
 
