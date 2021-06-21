@@ -1,8 +1,8 @@
-const solanaWeb3 = require('@solana/web3.js');
-const fs = require('mz/fs');
-const path = require('path');
-const BufferLayout = require('buffer-layout');
-const borsh = require('borsh');
+const solanaWeb3 = require('@solana/web3.js')
+const fs = require('mz/fs')
+const path = require('path')
+const BufferLayout = require('buffer-layout')
+const borsh = require('borsh')
 
 const {
   Template,
@@ -10,64 +10,63 @@ const {
   initSchema,
   claimBuffer,
   refundBuffer
-} = require('./layouts');
-const deploy = require('./deploy');
-const instructions = require('./instructions');
+} = require('./layouts')
+const deploy = require('./deploy')
+const instructions = require('./instructions')
 
-const RPC_URL_DEV_NET = 'https://api.devnet.solana.com';
+const RPC_URL_DEV_NET = 'https://api.devnet.solana.com'
 
-(async () => {
+;(async () => {
   const filePath = path.join(
-    path.resolve(__dirname, '../hello_world/solana-playground/dist/program') +
-      '/helloworld-keypair.json'
-  );
+    path.resolve(__dirname, '../dist/program') + '/helloworld-keypair.json'
+  )
 
-  const keypairString = await fs.readFile(filePath, { encoding: 'utf8' });
-  const keypairBuffer = Buffer.from(JSON.parse(keypairString));
+  const keypairString = await fs.readFile(filePath, { encoding: 'utf8' })
+  const keypairBuffer = Buffer.from(JSON.parse(keypairString))
 
-  account = new solanaWeb3.Account(keypairBuffer);
+  account = new solanaWeb3.Account(keypairBuffer)
 
-  programId = new solanaWeb3.PublicKey(account.publicKey);
+  programId = new solanaWeb3.PublicKey(account.publicKey)
 
-  console.log(programId.toString());
-})();
+  console.log(programId.toString())
+})()
 
-const connection = new solanaWeb3.Connection(RPC_URL_DEV_NET, 'confirmed');
-const LAMPORTS_PER_SOL = 1000000000;
+const connection = new solanaWeb3.Connection(RPC_URL_DEV_NET, 'confirmed')
+const LAMPORTS_PER_SOL = 1000000000
 
 const generateKeypair = async () => {
-  const keypair = new solanaWeb3.Keypair();
+  const keypair = new solanaWeb3.Keypair()
 
-  await connection.requestAirdrop(keypair.publicKey, 2 * LAMPORTS_PER_SOL);
+  await connection.requestAirdrop(keypair.publicKey, 2 * LAMPORTS_PER_SOL)
 
-  return keypair;
-};
+  return keypair
+}
 
-const getBalance = async (publicKey) => await connection.getBalance(publicKey);
+const getBalance = async publicKey => await connection.getBalance(publicKey)
 
 const sendTransaction = async (signer, recepient) => {
   const transfer = solanaWeb3.SystemProgram.transfer({
     fromPubkey: signer.publicKey,
     toPubkey: recepient,
     lamports: LAMPORTS_PER_SOL
-  });
+  })
 
-  const transaction = new solanaWeb3.Transaction({ signatures: [signer] });
+  const transaction = new solanaWeb3.Transaction({ signatures: [signer] })
 
-  transaction.add(transfer);
+  transaction.add(transfer)
 
   const tx = await solanaWeb3.sendAndConfirmTransaction(
     connection,
     transaction,
     [signer]
-  );
+  )
 
-  return tx;
-};
+  return tx
+}
 
-const sendLamportsAndData = async (signer) => {
-  const data = _serializeData();
-  const newAccount = solanaWeb3.Keypair.generate();
+const sendLamportsAndData = async signer => {
+  const data = _serializeData()
+  const newAccount = solanaWeb3.Keypair.generate()
 
   const transactionInstruction = new solanaWeb3.TransactionInstruction({
     keys: [
@@ -76,39 +75,39 @@ const sendLamportsAndData = async (signer) => {
     ],
     programId,
     data
-  });
+  })
 
-  const accountInstruction = _generateProgramAccount(signer, data, newAccount);
+  const accountInstruction = _generateProgramAccount(signer, data, newAccount)
 
-  const transaction = new solanaWeb3.Transaction({ signatures: [signer] });
+  const transaction = new solanaWeb3.Transaction({ signatures: [signer] })
 
-  transaction.add(transactionInstruction);
-  transaction.add(accountInstruction);
+  transaction.add(transactionInstruction)
+  transaction.add(accountInstruction)
 
   const resp = await solanaWeb3.sendAndConfirmTransaction(
     connection,
     transaction,
     [signer, newAccount]
-  );
+  )
 
-  return resp;
-};
+  return resp
+}
 
-const withdrawFromContractAccount = async (signer) => {
-  const dataLayout = BufferLayout.struct([BufferLayout.u8('instruction')]);
+const withdrawFromContractAccount = async signer => {
+  const dataLayout = BufferLayout.struct([BufferLayout.u8('instruction')])
 
-  const data = Buffer.alloc(1);
+  const data = Buffer.alloc(1)
 
   dataLayout.encode(
     {
       instruction: 2
     },
     data
-  );
+  )
 
-  const accounts = await connection.getProgramAccounts(programId);
+  const accounts = await connection.getProgramAccounts(programId)
 
-  const publicKey = new solanaWeb3.PublicKey(accounts[0].pubkey);
+  const publicKey = new solanaWeb3.PublicKey(accounts[0].pubkey)
 
   const transactionInstruction = new solanaWeb3.TransactionInstruction({
     keys: [
@@ -117,25 +116,25 @@ const withdrawFromContractAccount = async (signer) => {
     ],
     programId,
     data
-  });
+  })
 
-  const transaction = new solanaWeb3.Transaction({ signatures: [signer] });
+  const transaction = new solanaWeb3.Transaction({ signatures: [signer] })
 
-  transaction.add(transactionInstruction);
+  transaction.add(transactionInstruction)
 
   const tx = await solanaWeb3.sendAndConfirmTransaction(
     connection,
     transaction,
     [signer]
-  );
+  )
 
-  console.log(tx);
+  console.log(tx)
 
-  return tx;
-};
+  return tx
+}
 
-const sendData = async (signer) => {
-  const { data, dataLayout } = _serializeSimpleData();
+const sendData = async signer => {
+  const { data, dataLayout } = _serializeSimpleData()
 
   const transactionInstruction = new solanaWeb3.TransactionInstruction({
     keys: [
@@ -144,36 +143,36 @@ const sendData = async (signer) => {
     ],
     programId,
     data: Buffer.from(data)
-  });
+  })
 
-  const transaction = new solanaWeb3.Transaction({ signatures: [signer] });
+  const transaction = new solanaWeb3.Transaction({ signatures: [signer] })
 
-  transaction.add(accountInstruction).add(transactionInstruction);
+  transaction.add(accountInstruction).add(transactionInstruction)
 
   const tx = await solanaWeb3.sendAndConfirmTransaction(
     connection,
     transaction,
     [signer, newAccount]
-  );
+  )
 
-  console.log(tx);
+  console.log(tx)
 
-  return tx;
-};
+  return tx
+}
 
 const readAccountData = async () => {
-  const [firstAccount] = await connection.getProgramAccounts(programId);
+  const [firstAccount] = await connection.getProgramAccounts(programId)
 
-  const accountInfo = await connection.getAccountInfo(firstAccount.pubkey);
+  const accountInfo = await connection.getAccountInfo(firstAccount.pubkey)
 
-  return borsh.deserialize(initSchema, Template, accountInfo.data);
-};
+  return borsh.deserialize(initSchema, Template, accountInfo.data)
+}
 
-const calculateLamportsForSpace = async (space) =>
-  await connection.getMinimumBalanceForRentExemption(space);
+const calculateLamportsForSpace = async space =>
+  await connection.getMinimumBalanceForRentExemption(space)
 
-const init2 = async (signer) => {
-  const appAccount = new solanaWeb3.Account();
+const init2 = async signer => {
+  const appAccount = new solanaWeb3.Account()
 
   // Here we need to sum Lamports which are payed to store data +
   // Lamports which are locked in the contract
@@ -183,36 +182,36 @@ const init2 = async (signer) => {
     LAMPORTS_PER_SOL,
     initBuffer.length,
     programId
-  );
+  )
 
   const transactionInstruction = instructions.createTransactionInstruction(
     signer,
     appAccount,
     programId,
     initBuffer
-  );
+  )
 
   const transaction = new solanaWeb3.Transaction({ signatures: [signer] })
     .add(systemAccountInstruction)
-    .add(transactionInstruction);
+    .add(transactionInstruction)
 
   const tx = await solanaWeb3.sendAndConfirmTransaction(
     connection,
     transaction,
     [signer, appAccount]
-  );
+  )
 
-  console.log(tx);
+  console.log(tx)
 
-  return tx;
-};
+  return tx
+}
 
-const init = async (signer) => {
-  const { programId } = await deploy(connection, signer);
+const init = async signer => {
+  const { programId } = await deploy(connection, signer)
 
-  const lamports = await calculateLamportsForSpace(initBuffer.length);
+  const lamports = await calculateLamportsForSpace(initBuffer.length)
 
-  const appAccount = new solanaWeb3.Account();
+  const appAccount = new solanaWeb3.Account()
 
   // Here we need to sum Lamports which are payed to store data +
   // Lamports which are locked in the contract
@@ -222,43 +221,43 @@ const init = async (signer) => {
     lamports,
     initBuffer.length,
     programId
-  );
+  )
 
   const transactionInstruction = instructions.createTransactionInstruction(
     signer,
     appAccount,
     programId,
     initBuffer
-  );
+  )
 
   const transaction = new solanaWeb3.Transaction({ signatures: [signer] })
     .add(systemAccountInstruction)
-    .add(transactionInstruction);
+    .add(transactionInstruction)
 
   const tx = await solanaWeb3.sendAndConfirmTransaction(
     connection,
     transaction,
     [signer, appAccount]
-  );
+  )
 
-  console.log(tx);
+  console.log(tx)
 
-  return tx;
-};
+  return tx
+}
 
 const withdraw = async (signer, programAddress) => {
-  const programId = new solanaWeb3.PublicKey(programAddress);
+  const programId = new solanaWeb3.PublicKey(programAddress)
 
   const [[firstAccount], { buyer }] = await Promise.all([
     connection.getProgramAccounts(programId),
     readAccountData()
-  ]);
+  ])
 
-  console.log('first', firstAccount);
-  console.log('buy', buyer);
+  console.log('first', firstAccount)
+  console.log('buy', buyer)
 
-  const appAccount = new solanaWeb3.PublicKey(firstAccount.pubkey);
-  const buyerAccount = new solanaWeb3.PublicKey(buyer);
+  const appAccount = new solanaWeb3.PublicKey(firstAccount.pubkey)
+  const buyerAccount = new solanaWeb3.PublicKey(buyer)
 
   const transactionInstruction = instructions.getMoney(
     signer,
@@ -266,33 +265,33 @@ const withdraw = async (signer, programAddress) => {
     buyerAccount,
     programId,
     claimBuffer
-  );
+  )
 
   const transaction = new solanaWeb3.Transaction({ signatures: [signer] }).add(
     transactionInstruction
-  );
+  )
 
   const tx = await solanaWeb3.sendAndConfirmTransaction(
     connection,
     transaction,
     [signer]
-  );
+  )
 
-  console.log(tx);
+  console.log(tx)
 
-  return tx;
-};
+  return tx
+}
 
 const refund = async (signer, programAddress) => {
-  const programId = new solanaWeb3.PublicKey(programAddress);
+  const programId = new solanaWeb3.PublicKey(programAddress)
 
   const [[firstAccount], { seller }] = await Promise.all([
     connection.getProgramAccounts(programId),
     readAccountData()
-  ]);
+  ])
 
-  const appAccount = new solanaWeb3.PublicKey(firstAccount.pubkey);
-  const sellerAccount = new solanaWeb3.PublicKey(seller);
+  const appAccount = new solanaWeb3.PublicKey(firstAccount.pubkey)
+  const sellerAccount = new solanaWeb3.PublicKey(seller)
 
   const transactionInstruction = instructions.getMoney(
     signer,
@@ -300,22 +299,22 @@ const refund = async (signer, programAddress) => {
     sellerAccount,
     programId,
     refundBuffer
-  );
+  )
 
   const transaction = new solanaWeb3.Transaction({ signatures: [signer] }).add(
     transactionInstruction
-  );
+  )
 
   const tx = await solanaWeb3.sendAndConfirmTransaction(
     connection,
     transaction,
     [signer]
-  );
+  )
 
-  console.log(tx);
+  console.log(tx)
 
-  return tx;
-};
+  return tx
+}
 
 module.exports = {
   generateKeypair,
@@ -329,4 +328,4 @@ module.exports = {
   init2,
   withdraw,
   refund
-};
+}
