@@ -42,7 +42,7 @@ node_modules/
 jspm_packages/
 
 # Additional directories
-/target
+target
 .DS_Store
 
 # TypeScript v1 declaration files
