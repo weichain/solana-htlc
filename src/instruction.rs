@@ -24,6 +24,7 @@ pub struct Init {
   pub seller: String,
   pub secret_hash: String,
   pub expiration: u64,
+  pub value: u64,
 }
 
 #[derive(BorshSerialize, BorshDeserialize, Debug)]
@@ -36,16 +37,17 @@ impl Instruction {
   pub fn unpack(input: &[u8], accounts: &[AccountInfo]) -> Result<Self, ProgramError> {
     use InstructionError::NotExistingCase;
 
-    let (&instruction, rest) = input.split_first().ok_or(NotExistingCase)?;
+    let (&instruction, _) = input.split_first().ok_or(NotExistingCase)?;
 
     Ok(match instruction {
       0 => {
         let storage_data = Init::try_from_slice(input)?;
+        msg!("rest {:?}", storage_data);
         if storage_data.secret_hash.len() < 64 {
           return Err(InstructionError::InvalidSecret.into());
         }
         let account_info_iter = &mut accounts.iter();
-        let sender = next_account_info(account_info_iter)?;
+        let _ = next_account_info(account_info_iter)?;
         let storage_account = next_account_info(account_info_iter)?;
 
         let data = &mut &mut storage_account.data.borrow_mut();
@@ -56,12 +58,16 @@ impl Instruction {
       }
       1 => {
         let account_info_iter = &mut accounts.iter();
-        let signer = next_account_info(account_info_iter)?;
+        let _ = next_account_info(account_info_iter)?;
         let storage_account = next_account_info(account_info_iter)?;
         let buyer = next_account_info(account_info_iter)?;
 
         let input_data = Claim::try_from_slice(input)?;
         let storage_data = Init::try_from_slice(&storage_account.data.borrow())?;
+
+        if storage_data.buyer != buyer.key.to_string() {
+          return Err(InstructionError::InvalidBuyer.into());
+        }
 
         let mut hasher = Sha256::default();
         let message: Vec<u8> = decode(input_data.secret).expect("Invalid Hex String");
@@ -83,7 +89,7 @@ impl Instruction {
       }
       2 => {
         let account_info_iter = &mut accounts.iter();
-        let signer = next_account_info(account_info_iter)?;
+        let _ = next_account_info(account_info_iter)?;
         let storage_account = next_account_info(account_info_iter)?;
         let seller = next_account_info(account_info_iter)?;
         let storage_data = Init::try_from_slice(&storage_account.data.borrow())?;
@@ -94,10 +100,11 @@ impl Instruction {
           return Err(InstructionError::SwapNotExpired.into());
         }
 
-        msg!("seller, {:?}", seller.key);
-        msg!("storage, {:?}", storage_data.seller);
-
         let lamports = storage_account.lamports();
+
+        if storage_data.seller != seller.key.to_string() {
+          return Err(InstructionError::InvalidSeller.into());
+        }
 
         **storage_account.try_borrow_mut_lamports()? -= lamports;
         **seller.try_borrow_mut_lamports()? += lamports;

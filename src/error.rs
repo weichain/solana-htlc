@@ -10,6 +10,10 @@ pub enum InstructionError {
     InvalidSecret,
     #[error("Swap is not expired")]
     SwapNotExpired,
+    #[error("Invalid Seller")]
+    InvalidSeller,
+    #[error("Invalid Buyer")]
+    InvalidBuyer,
 }
 
 impl From<InstructionError> for ProgramError {
