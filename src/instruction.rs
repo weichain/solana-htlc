@@ -5,7 +5,6 @@ use hex::decode;
 use sha2::{Digest, Sha256};
 use solana_program::{
   account_info::{next_account_info, AccountInfo},
-  msg,
   program_error::ProgramError,
   sysvar::{clock::Clock, Sysvar},
 };
@@ -42,7 +41,6 @@ impl Instruction {
     Ok(match instruction {
       0 => {
         let storage_data = Init::try_from_slice(input)?;
-        msg!("rest {:?}", storage_data);
         if storage_data.secret_hash.len() < 64 {
           return Err(InstructionError::InvalidSecret.into());
         }
@@ -69,6 +67,10 @@ impl Instruction {
           return Err(InstructionError::InvalidBuyer.into());
         }
 
+        if input_data.secret.len() != 64 {
+          return Err(InstructionError::InvalidSecret.into());
+        }
+
         let mut hasher = Sha256::default();
         let message: Vec<u8> = decode(input_data.secret).expect("Invalid Hex String");
 
@@ -81,6 +83,10 @@ impl Instruction {
         }
 
         let lamports = storage_account.lamports();
+
+        if lamports == 0 {
+          return Err(InstructionError::AccountDoesNotExist.into());
+        }
 
         **storage_account.try_borrow_mut_lamports()? -= lamports;
         **buyer.try_borrow_mut_lamports()? += lamports;
@@ -101,6 +107,10 @@ impl Instruction {
         }
 
         let lamports = storage_account.lamports();
+
+        if lamports == 0 {
+          return Err(InstructionError::AccountDoesNotExist.into());
+        }
 
         if storage_data.seller != seller.key.to_string() {
           return Err(InstructionError::InvalidSeller.into());

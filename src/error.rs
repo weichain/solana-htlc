@@ -14,6 +14,8 @@ pub enum InstructionError {
     InvalidSeller,
     #[error("Invalid Buyer")]
     InvalidBuyer,
+    #[error("AccountDoesNotExist")]
+    AccountDoesNotExist,
 }
 
 impl From<InstructionError> for ProgramError {
